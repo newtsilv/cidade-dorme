@@ -17,7 +17,7 @@ export const nextPhase = (phase: GamePhase): GamePhase => {
     case 'NIGHT':
       return 'DAY_DISCUSSION'
     case 'DAY_DISCUSSION':
-      return 'VOTING'
+      return 'RESOLUTION'
     case 'VOTING':
       return 'RESOLUTION'
     case 'RESOLUTION':

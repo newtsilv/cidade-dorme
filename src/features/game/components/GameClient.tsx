@@ -8,6 +8,7 @@ import { PhaseBanner } from '@/components/game/PhaseBanner'
 import { PlayerList } from '@/components/game/PlayerList'
 import { RoleRevealCard } from '@/components/game/RoleRevealCard'
 import { SkipButton } from '@/components/game/SkipButton'
+import { VoteResolutionOverlay } from '@/components/game/VoteResolutionOverlay'
 import { VotePanel } from '@/components/voting/VotePanel'
 import { useSocketEvents } from '@/features/game/hooks/useSocketEvents'
 import { useGameStore } from '@/features/game/store'
@@ -25,13 +26,11 @@ export function GameClient() {
   const nightDeath = game.lastNightEliminatedPlayerId
     ? game.players.find((player) => player.id === game.lastNightEliminatedPlayerId)?.name
     : undefined
-  const voteDeath = game.lastVoteEliminatedPlayerId
-    ? game.players.find((player) => player.id === game.lastVoteEliminatedPlayerId)?.name
-    : undefined
 
   return (
     <main className="mx-auto min-h-screen max-w-7xl px-5 py-6">
       {game.phase === 'NIGHT' ? <NightActionPanel players={game.players} playerId={playerId} role={ownRole} nightTurn={game.nightTurn} /> : null}
+      <VoteResolutionOverlay game={game} />
       <GameResultModal game={game} />
 
       <div className="mb-5 grid gap-4 md:grid-cols-[1fr_auto]">
@@ -43,11 +42,10 @@ export function GameClient() {
         <div className="py-10"><RoleRevealCard role={ownRole} /></div>
       ) : null}
 
-      {game.phase === 'DAY_DISCUSSION' || game.phase === 'RESOLUTION' ? (
+      {game.phase === 'DAY_DISCUSSION' ? (
         <section className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4">
           <p className="text-sm font-black uppercase tracking-[0.3em] text-amber-200">Amanheceu</p>
           <h2 className="font-display text-3xl font-black">{nightDeath ? `${nightDeath} morreu durante a noite.` : 'A cidade acordou sem vitimas.'}</h2>
-          {voteDeath ? <p className="mt-2 text-slate-300">Na votacao, {voteDeath} foi eliminado.</p> : null}
         </section>
       ) : null}
 
@@ -62,7 +60,7 @@ export function GameClient() {
       <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
         <div className="space-y-5">
           <PlayerList players={game.players} votedIds={votedIds} />
-          {game.phase === 'VOTING' ? <VotePanel players={game.players} playerId={playerId} votedIds={votedIds} /> : null}
+          {game.phase === 'DAY_DISCUSSION' ? <VotePanel players={game.players} playerId={playerId} votedIds={votedIds} /> : null}
         </div>
         <aside className="space-y-4">
           {game.phase === 'DAY_DISCUSSION' ? <SkipButton disabled={!me?.isAlive} /> : null}

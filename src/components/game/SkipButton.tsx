@@ -6,7 +6,7 @@ import { getSocket } from '@/lib/socket'
 export function SkipButton({ disabled }: { disabled?: boolean }) {
   return (
     <Button variant="secondary" disabled={disabled} onClick={() => getSocket().emit('game:skip')}>
-      Pular discussao
+      Pular discussão/votação
     </Button>
   )
 }

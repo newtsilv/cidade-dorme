@@ -1,11 +1,12 @@
 import cors from '@fastify/cors'
 import Fastify from 'fastify'
 import { Server } from 'socket.io'
+import { getClientOrigin, getServerPort } from './config'
 import { registerSocketHandlers } from './socket/handlers'
 import type { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './socket/events'
 
-const port = Number(process.env.SERVER_PORT ?? 4000)
-const clientOrigin = process.env.CLIENT_ORIGIN ?? 'http://localhost:3000'
+const port = getServerPort(process.env)
+const clientOrigin = getClientOrigin(process.env)
 
 const app = Fastify({ logger: true })
 await app.register(cors, { origin: clientOrigin })

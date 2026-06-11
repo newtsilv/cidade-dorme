@@ -25,6 +25,7 @@
     "react-dom": "latest",
     "socket.io": "latest",
     "socket.io-client": "latest",
+    "tsx": "latest",
     "zustand": "latest"
   },
   "devDependencies": {
@@ -37,7 +38,6 @@
     "eslint-config-next": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
-    "tsx": "latest",
     "typescript": "latest",
     "vitest": "latest"
   }

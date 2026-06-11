@@ -75,6 +75,18 @@ const actionTypeForTurn = (turn?: NightTurn): NightActionType | undefined => {
   }
 }
 
+const resolveDiscussionVotes = ({ io, players, roomId, game }: { io: Io; players: Player[]; roomId: string; game: InternalGame }) => {
+  const vote = resolveVote({ players, votes: game.votes })
+  game.lastVoteEliminatedPlayerId = vote.eliminatedPlayerId
+  if (vote.eliminatedPlayerId) {
+    const eliminated = players.find((player) => player.id === vote.eliminatedPlayerId)
+    if (eliminated) eliminated.isAlive = false
+    io.to(roomId).emit('game:playerEliminated', { playerId: vote.eliminatedPlayerId, reason: 'vote' })
+  }
+  if (vote.winner) game.winner = vote.winner
+  game.votes = {}
+}
+
 export const gameService = {
   start({ io, roomId, players }: { io: Io; roomId: string; players: Player[] }) {
     const assignedPlayers = assignRoles(players)
@@ -154,7 +166,7 @@ export const gameService = {
     const game = games.get(roomId)
     const voter = players.find((player) => player.id === voterId)
     const target = players.find((player) => player.id === targetId)
-    if (!game || game.phase !== 'VOTING') throw new Error('Votacao indisponivel agora')
+    if (!game || game.phase !== 'DAY_DISCUSSION') throw new Error('Votacao indisponivel agora')
     if (!voter?.isAlive || !target?.isAlive) throw new Error('Apenas vivos podem votar e receber votos')
 
     game.votes[voterId] = targetId
@@ -187,6 +199,7 @@ export const gameService = {
     const game = games.get(roomId)
     if (!game || game.phase === 'GAME_OVER') return
     clearTimer(game)
+    const phaseBeforeAdvance = game.phase
 
     if (game.phase === 'NIGHT') {
       if (game.nightTurn && game.nightTurn !== 'NIGHT_END') {
@@ -204,20 +217,16 @@ export const gameService = {
       game.nightTurn = undefined
     }
 
+    if (game.phase === 'DAY_DISCUSSION') {
+      resolveDiscussionVotes({ io, players, roomId, game })
+    }
+
     if (game.phase === 'VOTING') {
-      const vote = resolveVote({ players, votes: game.votes })
-      game.lastVoteEliminatedPlayerId = vote.eliminatedPlayerId
-      if (vote.eliminatedPlayerId) {
-        const eliminated = players.find((player) => player.id === vote.eliminatedPlayerId)
-        if (eliminated) eliminated.isAlive = false
-        io.to(roomId).emit('game:playerEliminated', { playerId: vote.eliminatedPlayerId, reason: 'vote' })
-      }
-      if (vote.winner) game.winner = vote.winner
-      game.votes = {}
+      resolveDiscussionVotes({ io, players, roomId, game })
     }
 
     game.winner = game.winner ?? checkWinner(players)
-    if (game.winner) {
+    if (game.winner && phaseBeforeAdvance !== 'DAY_DISCUSSION') {
       game.phase = 'GAME_OVER'
       const state = buildState(roomId, players, true)
       io.to(roomId).emit('game:phaseChanged', state)
