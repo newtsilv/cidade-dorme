@@ -5,5 +5,10 @@ export const getServerPort = (env: Pick<NodeJS.ProcessEnv, 'PORT' | 'SERVER_PORT
   return Number.isFinite(port) && port > 0 ? port : 4000
 }
 
+const normalizeOrigin = (origin: string): string => origin.trim().replace(/\/+$/, '')
+
 export const getClientOrigin = (env: Pick<NodeJS.ProcessEnv, 'CLIENT_ORIGIN'>): string =>
-  env.CLIENT_ORIGIN ?? 'http://localhost:3000'
+  normalizeOrigin(env.CLIENT_ORIGIN ?? 'http://localhost:3000')
+
+export const getAllowedOrigins = (clientOrigin: string): string[] =>
+  Array.from(new Set([normalizeOrigin(clientOrigin), 'http://localhost:3000', 'http://localhost:3001']))

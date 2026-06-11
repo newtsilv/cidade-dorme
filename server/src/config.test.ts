@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { getServerPort } from './config'
+import { getAllowedOrigins, getClientOrigin, getServerPort } from './config'
 
 describe('server config', () => {
   test('uses Railway PORT before local SERVER_PORT', () => {
@@ -12,5 +12,19 @@ describe('server config', () => {
 
   test('falls back to 4000 when no valid port is provided', () => {
     expect(getServerPort({ PORT: 'not-a-number' })).toBe(4000)
+  })
+
+  test('normalizes client origin by removing trailing slash', () => {
+    expect(getClientOrigin({ CLIENT_ORIGIN: 'https://cidade-dorme-pink.vercel.app/' })).toBe(
+      'https://cidade-dorme-pink.vercel.app',
+    )
+  })
+
+  test('allows localhost and configured production origin', () => {
+    expect(getAllowedOrigins('https://cidade-dorme-pink.vercel.app')).toEqual([
+      'https://cidade-dorme-pink.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:3001',
+    ])
   })
 })

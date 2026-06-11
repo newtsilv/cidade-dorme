@@ -5,9 +5,11 @@ import type { ClientToServerEvents, ServerToClientEvents } from '../../server/sr
 
 let socket: Socket<ServerToClientEvents, ClientToServerEvents> | undefined
 
+export const getSocketUrl = (): string => process.env.NEXT_PUBLIC_SOCKET_URL ?? 'http://localhost:4000'
+
 export const getSocket = (): Socket<ServerToClientEvents, ClientToServerEvents> => {
   if (!socket) {
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL ?? 'http://localhost:4000', {
+    socket = io(getSocketUrl(), {
       autoConnect: true,
     })
   }

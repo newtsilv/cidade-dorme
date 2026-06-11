@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { getSocket } from '@/lib/socket'
+import { getSocket, getSocketUrl } from '@/lib/socket'
 import { useGameStore } from '../store'
 
 export const useSocketEvents = () => {
@@ -32,7 +32,7 @@ export const useSocketEvents = () => {
     socket.on('chat:messageReceived', (message) => useGameStore.getState().addMessage(message))
     socket.on('error', ({ message }) => useGameStore.getState().setError(message))
     socket.on('connect_error', () => {
-      useGameStore.getState().setError('Nao consegui conectar ao servidor. Verifique se voce rodou npm run dev.')
+      useGameStore.getState().setError(`Nao consegui conectar ao servidor em ${getSocketUrl()}. Verifique a NEXT_PUBLIC_SOCKET_URL na Vercel.`)
     })
 
     return () => {
