@@ -31,9 +31,51 @@ export const AVATARS: AvatarOption[] = [
     imagePath: "/avatars/predogay.png",
   },
   {
+    id: "luxas",
+    label: "luxas",
+    gradient: "from-violet-300 to-purple-950",
+    imagePath: "/avatars/luxas.png",
+  },
+  {
     id: "paulete",
     label: "paulete",
     gradient: "from-emerald-300 to-slate-950",
     imagePath: "/avatars/paulete.png",
+  },
+  {
+    id: "sacana",
+    label: "sacana",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/sacana.png",
+  },
+  {
+    id: "negoni",
+    label: "negoni",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/negoni.png",
+  },
+  {
+    id: "maria",
+    label: "maria",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/maria.png",
+  },
+  {
+    id: "estevao",
+    label: "estevao",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/estevao.png",
+  },
+  {
+    id: "alexandre",
+    label: "alexandre",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/alexandre.png",
+  },
+  {
+    id: "newt",
+    label: "newt",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/newt.png",
   },
 ];

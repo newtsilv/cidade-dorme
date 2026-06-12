@@ -6,17 +6,17 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 const variants = {
-  primary: 'border-amber-300/70 bg-amber-300 text-slate-950 hover:bg-amber-200',
-  secondary: 'border-violet-300/40 bg-violet-500/15 text-violet-100 hover:bg-violet-500/25',
-  danger: 'border-red-400/60 bg-red-500/20 text-red-100 hover:bg-red-500/30',
-  ghost: 'border-white/10 bg-white/5 text-slate-100 hover:bg-white/10',
+  primary: 'border-[#171717] bg-[#171717] text-[#eac8a6] shadow-[5px_6px_0_#5e7381] hover:-translate-y-0.5 hover:bg-[#171717]/90 hover:shadow-[7px_8px_0_#5e7381]',
+  secondary: 'border-[#5e7381] bg-[#5e7381] text-[#dacbb6] shadow-[4px_5px_0_#171717] hover:-translate-y-0.5 hover:bg-[#526775]',
+  danger: 'border-red-950 bg-red-800 text-[#eac8a6] shadow-[4px_5px_0_#171717] hover:-translate-y-0.5 hover:bg-red-900',
+  ghost: 'border-[#dacbb6]/55 bg-[#dacbb6]/10 text-[#171717] shadow-[4px_5px_0_rgba(23,23,23,0.45)] hover:-translate-y-0.5 hover:bg-[#dacbb6]/20',
 }
 
 export function Button({ className, variant = 'primary', ...props }: ButtonProps) {
   return (
     <button
       className={cn(
-        'rounded-xl border px-4 py-2 text-sm font-bold uppercase tracking-[0.18em] transition disabled:cursor-not-allowed disabled:opacity-45',
+        'rounded-[999px_1.15rem_999px_1.35rem] border-2 px-4 py-2 text-sm font-black uppercase tracking-[0.18em] transition disabled:cursor-not-allowed disabled:opacity-45',
         variants[variant],
         className,
       )}
