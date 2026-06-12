@@ -9,7 +9,7 @@ const variants = {
   primary: 'border-[#171717] bg-[#171717] text-[#eac8a6] shadow-[5px_6px_0_#5e7381] hover:-translate-y-0.5 hover:bg-[#171717]/90 hover:shadow-[7px_8px_0_#5e7381]',
   secondary: 'border-[#5e7381] bg-[#5e7381] text-[#dacbb6] shadow-[4px_5px_0_#171717] hover:-translate-y-0.5 hover:bg-[#526775]',
   danger: 'border-red-950 bg-red-800 text-[#eac8a6] shadow-[4px_5px_0_#171717] hover:-translate-y-0.5 hover:bg-red-900',
-  ghost: 'border-[#dacbb6]/55 bg-[#dacbb6]/10 text-[#dacbb6] shadow-[4px_5px_0_rgba(23,23,23,0.45)] hover:-translate-y-0.5 hover:bg-[#dacbb6]/20',
+  ghost: 'border-[#dacbb6]/55 bg-[#dacbb6]/10 text-[#171717] shadow-[4px_5px_0_rgba(23,23,23,0.45)] hover:-translate-y-0.5 hover:bg-[#dacbb6]/20',
 }
 
 export function Button({ className, variant = 'primary', ...props }: ButtonProps) {

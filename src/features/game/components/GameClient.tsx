@@ -80,6 +80,7 @@ export function GameClient() {
               players={game.players}
               votedIds={votedIds}
               disabled={!canVote}
+              disableCardHover
               selectedPlayerId={selectedVoteTargetId}
               excludePlayerId={playerId}
               onSelectPlayer={setSelectedVoteTargetId}

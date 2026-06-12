@@ -7,12 +7,13 @@ type PlayerListProps = {
   players: PublicPlayer[]
   votedIds?: string[]
   disabled?: boolean
+  disableCardHover?: boolean
   selectedPlayerId?: string
   excludePlayerId?: string
   onSelectPlayer?: (playerId: string) => void
 }
 
-export function PlayerList({ players, votedIds = [], disabled, selectedPlayerId, excludePlayerId, onSelectPlayer }: PlayerListProps) {
+export function PlayerList({ players, votedIds = [], disabled, disableCardHover, selectedPlayerId, excludePlayerId, onSelectPlayer }: PlayerListProps) {
   const alive = players.filter((player) => player.isAlive)
   const dead = players.filter((player) => !player.isAlive)
 
@@ -26,6 +27,7 @@ export function PlayerList({ players, votedIds = [], disabled, selectedPlayerId,
               <PlayerCard
                 player={player}
                 voted={votedIds.includes(player.id)}
+                disableHover={disableCardHover}
                 selected={selectedPlayerId === player.id}
                 disabled={disabled || player.id === excludePlayerId}
                 onClick={onSelectPlayer && player.id !== excludePlayerId ? () => onSelectPlayer(player.id) : undefined}

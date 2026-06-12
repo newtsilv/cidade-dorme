@@ -10,10 +10,11 @@ type PlayerCardProps = {
   selected?: boolean
   disabled?: boolean
   voted?: boolean
+  disableHover?: boolean
   onClick?: () => void
 }
 
-export function PlayerCard({ player, selected, disabled, voted, onClick }: PlayerCardProps) {
+export function PlayerCard({ player, selected, disabled, voted, disableHover, onClick }: PlayerCardProps) {
   const avatar = AVATARS.find((option) => option.id === player.avatar) ?? AVATARS[0]
   const roleName = player.role ? getRole(player.role as RoleId).name : undefined
 
@@ -26,7 +27,8 @@ export function PlayerCard({ player, selected, disabled, voted, onClick }: Playe
         'group relative aspect-[3/4] min-h-44 origin-bottom overflow-hidden rounded-[1.1rem_1.5rem_1rem_1.3rem] bg-[#171717] p-2 text-left text-[#dacbb6] shadow-[8px_9px_0_rgba(94,115,129,0.55)] transition',
         player.isAlive ? 'opacity-100' : 'opacity-45 grayscale',
         selected && 'bg-[#5e7381] shadow-[0_0_0_4px_#eac8a6,9px_10px_0_rgba(23,23,23,0.45)]',
-        !disabled && onClick && 'cursor-pointer hover:-translate-y-1',
+        !disabled && onClick && 'cursor-pointer',
+        !disabled && onClick && !disableHover && 'hover:-translate-y-1',
       )}
     >
       <div
