@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AvatarSelector } from '@/components/character/AvatarSelector'
+import { GameBackdrop } from '@/components/layout/GameBackdrop'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { useSocketEvents } from '@/features/game/hooks/useSocketEvents'
@@ -50,18 +51,8 @@ export default function HomePage() {
   }
 
   return (
-    <main className="relative flex min-h-screen overflow-hidden bg-[#171717] px-5 py-8 text-[#dacbb6] sm:px-8 lg:px-12">
-      <div
-        className="absolute inset-0 bg-cover bg-[center_18%] opacity-75 saturate-75"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(23,23,23,0.93), rgba(23,23,23,0.58) 46%, rgba(23,23,23,0.86)), linear-gradient(to top, rgba(23,23,23,0.95), rgba(23,23,23,0.18) 100%, rgba(23,23,23,0.72)), url('/avatars/manel%20(4).svg')",
-        }}
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(234,200,166,0.22),transparent_24rem),radial-gradient(circle_at_82%_72%,rgba(94,115,129,0.2),transparent_28rem)] mix-blend-screen" />
-      <div className="absolute inset-x-6 top-6 bottom-6 rounded-[2rem] border border-[#dacbb6]/18" />
-
-      <section className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-10 py-12 lg:flex-row lg:items-center lg:justify-between">
+    <GameBackdrop className="flex px-5 py-8 sm:px-8 lg:px-12" contentClassName="mx-auto flex w-full max-w-6xl flex-1" visibility="strong">
+      <section className="flex w-full flex-col justify-center gap-10 py-12 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-3xl">
           <p className="mb-4 text-xs font-black uppercase tracking-[0.45em] text-[#eac8a6] [text-shadow:2px_2px_0_#171717]">oxydorme</p>
           <h1 className="font-display text-6xl font-black leading-[0.82] tracking-[-0.08em] text-[#dacbb6] [text-shadow:4px_4px_0_#171717,7px_7px_0_rgba(94,115,129,0.95)] md:text-8xl lg:text-9xl">
@@ -116,6 +107,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </main>
+    </GameBackdrop>
   )
 }
