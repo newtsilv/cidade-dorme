@@ -36,4 +36,16 @@ export const AVATARS: AvatarOption[] = [
     gradient: "from-emerald-300 to-slate-950",
     imagePath: "/avatars/paulete.png",
   },
+  {
+    id: "sacana",
+    label: "sacana",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/sacana.png",
+  },
+  {
+    id: "negoni",
+    label: "negoni",
+    gradient: "from-emerald-300 to-slate-950",
+    imagePath: "/avatars/negoni.png",
+  },
 ];
